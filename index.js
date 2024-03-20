@@ -35,16 +35,21 @@ app.use(
 const findSearchSortPage = require("./src/middlewares/findSearchSortPage");
 app.use(findSearchSortPage);
 
+// Auth Simple Token
+app.use(require("./src/middlewares/authentication"));
+
 // ROUTING
 app.all("/", (req, res) => {
   res.send({
     message: "Welcome to the Personnel Api",
-    user: req.session,
+    user: req.user,
   });
 });
 
-app.use("/departments", require("./src/routes/department.router"));
-app.use("/personnels", require("./src/routes/personnel.router"));
+// app.use("/departments", require("./src/routes/department.router"));
+// app.use("/personnels", require("./src/routes/personnel.router"));
+
+app.use(require("./src/routes"));
 
 // errorHandler:  En altta olması gerekmektedir.
 app.use(require("./src/middlewares/errorHandler"));
@@ -54,4 +59,4 @@ app.listen(PORT, () => console.log("http://" + HOST + ":" + PORT));
 
 /* ------------------------------------------------------- */
 // Syncronization (must be in commentLine):
-// require('./src/helpers/sync')()
+// require("./src/helpers/sync")();

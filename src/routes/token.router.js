@@ -3,19 +3,17 @@
     EXPRESS - Personnel API
 ------------------------------------------------------- */
 const router = require("express").Router();
-const Personnel = require("../controllers/personnel.controller");
+const Token = require("../controllers/token.controller");
 /* ------------------------------------------------------- */
 
-// Login/logout:
-
-router.route("/").get(Personnel.list).post(Personnel.create);
+router.route("/").get(Token.list).post(Token.create);
 
 router
   .route("/:id")
-  .get(Personnel.read)
-  .put(Personnel.update)
-  .patch(Personnel.update)
-  .delete(Personnel.delete);
+  .get(Token.read)
+  .put(Token.update)
+  .patch(Token.update)
+  .delete(Token.delete);
 
 /* ------------------------------------------------------- */
 module.exports = router;
