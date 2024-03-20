@@ -6,6 +6,10 @@ const router = require("express").Router();
 const Personnel = require("../controllers/personnel.controller");
 /* ------------------------------------------------------- */
 
+// Login/logout:
+router.post("/login", Personnel.login);
+router.all("/logout", Personnel.logout);
+
 router.route("/").get(Personnel.list).post(Personnel.create);
 
 router
