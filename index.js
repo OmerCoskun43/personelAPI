@@ -37,7 +37,10 @@ app.use(findSearchSortPage);
 
 // ROUTING
 app.all("/", (req, res) => {
-  res.send("Welcome to the Personnel API");
+  res.send({
+    message: "Welcome to the Personnel Api",
+    user: req.session,
+  });
 });
 
 app.use("/departments", require("./src/routes/department.router"));
