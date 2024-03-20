@@ -3,7 +3,7 @@
     EXPRESS - Personnel API
 ------------------------------------------------------- */
 const router = require("express").Router();
-const Personnel = require("../controllers/department.controller");
+const Personnel = require("../controllers/personnel.controller");
 /* ------------------------------------------------------- */
 
 router.route("/").get(Personnel.list).post(Personnel.create);

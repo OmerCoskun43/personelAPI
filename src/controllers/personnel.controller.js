@@ -2,20 +2,30 @@
 /* -------------------------------------------------------
     EXPRESS - Personnel API
 ------------------------------------------------------- */
-const Personnel = require("../models/department.model");
+const Personnel = require("../models/personnel.model");
 
 module.exports = {
   list: async (req, res) => {
-    const data = await res.getModelList(Personnel);
+    const data = await res.getModelList(Personnel, "departmentId");
 
     res.status(200).send({
       error: false,
-      message: "Departments listed succesfully",
+      message: "Personnels listed succesfully",
       details: await res.getModelListDetails(Personnel),
       data,
     });
   },
   create: async (req, res) => {
+    if (req.body.isLead) {
+      await Personnel.updateMany(
+        {
+          departmentId: req.body.departmentId,
+          isLead: true,
+        },
+        { isLead: false }
+      );
+    }
+
     let data = new Personnel(req.body);
     data = await data.save();
     res.status(201).send({
@@ -36,6 +46,15 @@ module.exports = {
     });
   },
   update: async (req, res) => {
+    if (req.body.isLead) {
+      const { departmentId } = await Personnel.findOne(
+        { _id: req.params.id },
+        { departmentId: 1 }
+      );
+
+      await Personnel.updateMany({ departmentId }, { isLead: false });
+    }
+
     const id = req.params?.id;
     const newData = req.body;
     await Personnel.updateOne({ _id: id }, newData, { runValidators: true });

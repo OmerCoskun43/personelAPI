@@ -96,4 +96,5 @@ const PersonnelSchema = new mongoose.Schema(
 );
 
 /* ------------------------------------------------------- */
-module.exports = mongoose.model("Personnel", PersonnelSchema);
+const Personnel = mongoose.model("Personnel", PersonnelSchema);
+module.exports = Personnel;
