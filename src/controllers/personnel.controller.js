@@ -52,6 +52,11 @@ module.exports = {
         { departmentId: 1 }
       );
 
+      if (!req.user.isAdmin) {
+        req.body.isAdmin = false;
+        delete req.body.salary;
+      }
+
       await Personnel.updateMany({ departmentId }, { isLead: false });
     }
 

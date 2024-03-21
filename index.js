@@ -38,6 +38,9 @@ app.use(findSearchSortPage);
 // Auth Simple Token
 app.use(require("./src/middlewares/authentication"));
 
+// Permission Middleware
+// app.use(require("./src/middlewares/permissions"));
+
 // ROUTING
 app.all("/", (req, res) => {
   res.send({
@@ -49,7 +52,7 @@ app.all("/", (req, res) => {
 // app.use("/departments", require("./src/routes/department.router"));
 // app.use("/personnels", require("./src/routes/personnel.router"));
 
-app.use(require("./src/routes"));
+app.use(require("./src/routes/index"));
 
 // errorHandler:  En altta olması gerekmektedir.
 app.use(require("./src/middlewares/errorHandler"));

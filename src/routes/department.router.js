@@ -4,17 +4,21 @@
 ------------------------------------------------------- */
 const router = require("express").Router();
 const Department = require("../controllers/department.controller");
+const Permissions = require("../middlewares/permissions");
 /* ------------------------------------------------------- */
 
-router.route("/").get(Department.list).post(Department.create);
-router.get("/:id/personnels", Department.personnels);
+router
+  .route("/")
+  .get(Permissions.isLogin, Department.list)
+  .post(Permissions.isAdmin, Department.create);
+router.get("/:id/personnels", Permissions.isAdminOrLead, Department.personnels);
 
 router
   .route("/:id")
-  .get(Department.read)
-  .put(Department.update)
-  .patch(Department.update)
-  .delete(Department.delete);
+  .get(Permissions.isLogin, Department.read)
+  .put(Permissions.isAdmin, Department.update)
+  .patch(Permissions.isAdmin, Department.update)
+  .delete(Permissions.isAdmin, Department.delete);
 
 /* ------------------------------------------------------- */
 module.exports = router;
