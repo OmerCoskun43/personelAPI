@@ -7,6 +7,11 @@ const Personnel = require("../models/personnel.model");
 module.exports = {
   list: async (req, res) => {
     const data = await res.getModelList(Personnel, {}, "departmentId");
+    /*
+            #swagger.tags = ["Personnels"]
+            #swagger.summary = "List Personnels"
+            
+        */
 
     res.status(200).send({
       error: false,
@@ -16,6 +21,11 @@ module.exports = {
     });
   },
   create: async (req, res) => {
+    /*
+            #swagger.tags = ["Personnels"]
+            #swagger.summary = "Create Personnel"
+            
+        */
     if (req.body.isLead) {
       await Personnel.updateMany(
         {
@@ -36,6 +46,11 @@ module.exports = {
     });
   },
   read: async (req, res) => {
+    /*
+            #swagger.tags = ["Personnels"]
+            #swagger.summary = "Read Personnel"
+            
+        */
     const id = req.params?.id;
     const data = await Personnel.findOne({ _id: id });
     res.status(200).send({
@@ -46,6 +61,11 @@ module.exports = {
     });
   },
   update: async (req, res) => {
+    /*
+            #swagger.tags = ["Personnels"]
+            #swagger.summary = "Update Personnel"
+            
+        */
     if (req.body.isLead) {
       const { departmentId } = await Personnel.findOne(
         { _id: req.params.id },
@@ -72,6 +92,11 @@ module.exports = {
     });
   },
   delete: async (req, res) => {
+    /*
+            #swagger.tags = ["Personnels"]
+            #swagger.summary = "Delete Personnel"
+            
+        */
     const id = req.params?.id;
     const data = await Personnel.findOne({ _id: id });
     //! Birinci Yöntem

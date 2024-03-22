@@ -8,6 +8,10 @@ const Token = require("../models/token.model");
 
 module.exports = {
   list: async (req, res) => {
+    /*
+  #swagger.ignore = true
+  
+  */
     const data = await res.getModelList(Token);
 
     res.status(200).send({
@@ -18,6 +22,10 @@ module.exports = {
     });
   },
   create: async (req, res) => {
+    /*
+  #swagger.ignore = true
+  
+  */
     let data = new Token(req.body);
     data = await data.save();
     res.status(201).send({
@@ -28,6 +36,10 @@ module.exports = {
     });
   },
   read: async (req, res) => {
+    /*
+  #swagger.ignore = true
+  
+  */
     const id = req.params?.id;
     const data = await Token.findOne({ _id: id });
     res.status(200).send({
@@ -38,6 +50,10 @@ module.exports = {
     });
   },
   update: async (req, res) => {
+    /*
+  #swagger.ignore = true
+  
+  */
     const id = req.params?.id;
     const newData = req.body;
     await Token.updateOne({ _id: id }, newData, { runValidators: true });
@@ -50,6 +66,10 @@ module.exports = {
     });
   },
   delete: async (req, res) => {
+    /*
+  #swagger.ignore = true
+  
+  */
     const id = req.params?.id;
     const data = await Token.findOne({ _id: id });
     const dataa = await Token.deleteOne({ _id: id });

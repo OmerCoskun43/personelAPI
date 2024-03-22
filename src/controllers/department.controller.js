@@ -7,6 +7,11 @@ const Personnel = require("../models/personnel.model");
 
 module.exports = {
   list: async (req, res) => {
+    /*
+            #swagger.tags = ['Authentication']
+            #swagger.summary = 'Logout'
+            #swagger.description = 'Delete Token'
+        */
     const data = await res.getModelList(Department);
 
     res.status(200).send({
@@ -17,6 +22,17 @@ module.exports = {
     });
   },
   create: async (req, res) => {
+    /*
+            #swagger.tags = ["Departments"]
+            #swagger.summary = "Create Department"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                    name: 'Test Department'
+                }
+            }
+        */
     let data = new Department(req.body);
     data = await data.save();
     res.status(201).send({
@@ -27,6 +43,10 @@ module.exports = {
     });
   },
   read: async (req, res) => {
+    /*
+            #swagger.tags = ["Departments"]
+            #swagger.summary = "Get Single Department"
+        */
     const id = req.params?.id;
     const data = await Department.findOne({ _id: id });
     res.status(200).send({
@@ -37,6 +57,17 @@ module.exports = {
     });
   },
   update: async (req, res) => {
+    /*
+            #swagger.tags = ["Departments"]
+            #swagger.summary = "Update Department"
+            #swagger.parameters['body'] = {
+                in: 'body',
+                required: true,
+                schema: {
+                    name: 'Test Department'
+                }
+            }
+        */
     const id = req.params?.id;
     const newData = req.body;
     await Department.updateOne({ _id: id }, newData, { runValidators: true });
@@ -49,6 +80,10 @@ module.exports = {
     });
   },
   delete: async (req, res) => {
+    /*
+            #swagger.tags = ["Departments"]
+            #swagger.summary = "Delete Department"
+        */
     const id = req.params?.id;
     const data = await Department.findOne({ _id: id });
     //! Birinci Yöntem
@@ -80,6 +115,10 @@ module.exports = {
   },
 
   personnels: async (req, res) => {
+    /*
+        #swagger.tags = ["Departments"]
+        #swagger.summary = "Personnels of Department"
+    */
     const data = await res.getModelList(
       Personnel,
       { departmentId: req.params.id },

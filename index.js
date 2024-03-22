@@ -8,6 +8,7 @@ const app = express();
 require("dotenv").config();
 require("express-async-errors");
 const { dbConnection } = require("./src/configs/dbConnection");
+// const morgan = require("morgan");
 
 /* ------------------------------------------------------- */
 // ENV VARIABLES
@@ -19,8 +20,55 @@ const SECRET_KEY = process.env.SECRET_KEY;
 app.use(express.json());
 // continue from here...
 
+//! DOCUMENTATION
+// $ npm i swagger-autogen
+// $ npm i swagger-ui-express
+// $ npm i redoc-express
+
+//? JSON
+const swaggerJson = require("./swagger.json");
+app.use("/documents/json", (req, res) => {
+  res.sendFile(__dirname + "/swagger.json");
+});
+
+//?SWAGGER
+const swaggerUi = require("swagger-ui-express");
+app.use(
+  "/documents/swagger",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerJson, {
+    swaggerOptions: { persistAuthorization: true },
+  })
+);
+
+//? REDOC
+const redoc = require("redoc-express");
+app.use(
+  "/documents/redoc",
+  redoc({
+    title: "PersonnelAPI",
+    specUrl: "/documents/json",
+  })
+);
+
 // Database Connection
 dbConnection();
+
+// MORGAN MIDDLEWARE
+app.use(require("./src/middlewares/logging"));
+
+// MORGAN LOGGING
+// https://expressjs.com/en/resources/middleware/morgan.html
+// https://github.com/expressjs/morgan
+
+// app.use(morgan("combined"));
+// app.use(morgan("common"));
+// app.use(morgan("tiny"));
+// app.use(
+//   morgan(
+//     "IP=:remote-addr | TIME=:date[clf] | METHOD=:method | URL=:url | STATUS=:status | LENGTH=:res[content-length] | REF=:referrer |  AGENT=:user-agent"
+//   )
+// );
 
 // Cookies
 const session = require("cookie-session");
@@ -46,6 +94,14 @@ app.all("/", (req, res) => {
   res.send({
     message: "Welcome to the Personnel Api",
     user: req.user,
+    api: {
+      documents: {
+        swagger: "http://127.0.0.1:8000/documents/swagger",
+        redoc: "http://127.0.0.1:8000/documents/redoc",
+        json: "http://127.0.0.1:8000/documents/json",
+      },
+      contact: "contact@clarusway.com",
+    },
   });
 });
 
