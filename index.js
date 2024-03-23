@@ -55,7 +55,7 @@ app.use(
 dbConnection();
 
 // MORGAN MIDDLEWARE
-app.use(require("./src/middlewares/logging"));
+// app.use(require("./src/middlewares/logging"));
 
 // MORGAN LOGGING
 // https://expressjs.com/en/resources/middleware/morgan.html
