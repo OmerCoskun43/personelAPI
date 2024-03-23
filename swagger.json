@@ -13,7 +13,7 @@
       "name": "ISC"
     }
   },
-  "host": "127.0.0.1:8000",
+  "host": "https://personel-api-server-iw3hsrq38-omercoskun43s-projects.vercel.app:8000",
   "basePath": "/",
   "schemes": [
     "http",
@@ -725,7 +725,7 @@
             },
             "default": {
               "type": "number",
-              "example": 1711180802215
+              "example": 1711185728091
             }
           }
         }
