@@ -103,7 +103,7 @@ app.all("/", (req, res) => {
         json:
           "https://personel-api-server-iw3hsrq38-omercoskun43s-projects.vercel.app/documents/json",
       },
-      contact: "contact@clarusway.com",
+      contact: "omercoskun4343@gmail.com",
     },
   });
 });
