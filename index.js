@@ -96,9 +96,12 @@ app.all("/", (req, res) => {
     user: req.user,
     api: {
       documents: {
-        swagger: "https://personel-api-server.vercel.app/documents/swagger",
-        redoc: "https://personel-api-server.vercel.app/documents/redoc",
-        json: "https://personel-api-server.vercel.app/documents/json",
+        swagger:
+          "https://personel-api-server-iw3hsrq38-omercoskun43s-projects.vercel.app/documents/swagger",
+        redoc:
+          "https://personel-api-server-iw3hsrq38-omercoskun43s-projects.vercel.app/documents/redoc",
+        json:
+          "https://personel-api-server-iw3hsrq38-omercoskun43s-projects.vercel.app/documents/json",
       },
       contact: "contact@clarusway.com",
     },
